@@ -1,0 +1,52 @@
+50
+DT001#Paracetamol#Paracetamol#Pain relief and fever reduction#Take after meals to avoid stomach pain
+DT002#Ibuprofen#Ibuprofen#Pain relief and anti-inflammatory#Take with plenty of water
+DT003#Loratadine#Loratadine#Antihistamine#Take once daily for allergy relief
+DT004#Omeprazole#Omeprazole#Proton pump inhibitor#Take before breakfast for acid reflux
+DT005#Diphenhydramine#Diphenhydramine#Antihistamine#May cause drowsiness, avoid driving
+DT006#Cetirizine#Cetirizine#Antihistamine#Take daily for seasonal allergies
+DT007#Simvastatin#Simvastatin#Cholesterol-lowering medication#Take in the evening for best results
+DT008#Metformin#Metformin#Antidiabetic medication#Take with meals to reduce gastrointestinal side effects
+DT009#Levothyroxine#Levothyroxine#Thyroid hormone replacement#Take on an empty stomach in the morning
+DT010#Aspirin#Aspirin#Blood thinner and pain reliever#Take with food to prevent stomach irritation
+DT011#Metoprolol#Metoprolol#Beta blocker#Take regularly to control blood pressure
+DT012#Ciprofloxacin#Ciprofloxacin#Antibiotic#Complete full course even if symptoms improve
+DT013#Atorvastatin#Atorvastatin#Cholesterol-lowering medication#Take in the evening for best results
+DT014#Prednisone#Prednisone#Corticosteroid#Take with food to minimize stomach upset
+DT015#Escitalopram#Escitalopram#Antidepressant#May take several weeks to feel full effects
+DT016#Albuterol#Albuterol#Bronchodilator#Use as needed for asthma sympto
+DT017#Amlodipine#Amlodipine#Calcium channel blocker#Take once daily for hypertension
+DT018#Losartan#Losartan#ARB (Angiotensin II receptor blocker)#Take once daily for hypertension
+DT019#Fluoxetine#Fluoxetine#Antidepressant#May take several weeks to feel full effects
+DT020#Warfarin#Warfarin#Anticoagulant#Regular monitoring of blood clotting time required
+DT021#Hydrochlorothiazide#Hydrochlorothiazide#Diuretic#Take in the morning to avoid nighttime urination
+DT022#Gabapentin#Gabapentin#Anticonvulsant#May cause dizziness, use caution
+DT023#Tramadol#Tramadol#Opioid analgesic#Avoid alcohol while taking, may cause drowsiness
+DT024#Amlodipine#Amlodipine#Calcium channel blocker#Take once daily for hypertension
+DT025#Methotrexate#Methotrexate#Immunosuppressant#Take with folic acid to reduce side effects
+DT026#Furosemide#Furosemide#Loop diuretic#Take in the morning to prevent nighttime urination
+DT027#Bupropion#Bupropion#Antidepressant#Avoid abrupt discontinuation, may cause withdrawal symptoms
+DT028#Clopidogrel#Clopidogrel#Antiplatelet agent#Take with food to prevent stomach upset
+DT029#Duloxetine#Duloxetine#Antidepressant#May cause drowsiness, avoid driving or operating machinery
+DT030#Olanzapine#Olanzapine#Antipsychotic#Regular monitoring of blood sugar and cholesterol levels required
+DT031#Clonazepam#Clonazepam#Benzodiazepine#Take as directed for anxiety or seizures
+DT032#Methylprednisolone#Methylprednisolone#Corticosteroid#Take with food to minimize stomach upset
+DT033#Venlafaxine#Venlafaxine#Antidepressant#May take several weeks to feel full effects
+DT034#Quetiapine#Quetiapine#Antipsychotic#Take at bedtime for best results
+DT035#Tamsulosin#Tamsulosin#Alpha blocker#Take 30 minutes after the same meal each day
+DT036#Citalopram#Citalopram#Antidepressant#May take several weeks to feel full effects
+DT037#Amoxicillin#Amoxicillin#Antibiotic#Complete full course even if symptoms improve
+DT038#Clarithromycin#Clarithromycin#Antibiotic#Take with food to reduce stomach upset
+DT039#Carvedilol#Carvedilol#Beta blocker#Take with food to improve absorption
+DT040#Cefdinir#Cefdinir#Antibiotic#Complete full course even if symptoms improve
+DT041#Risperidone#Risperidone#Antipsychotic#May cause drowsiness, avoid driving or operating machinery
+DT042#Folic Acid#Folic Acid#Vitamin supplement#Take as directed for prenatal care or to treat deficiencies
+DT043#Doxycycline#Doxycycline#Antibiotic#Take with plenty of water and remain upright for 30 minutes
+DT044#Naproxen#Naproxen#Pain relief and anti-inflammatory#Take with food to reduce stomach irritation
+DT045#Mirtazapine#Mirtazapine#Antidepressant#May cause drowsiness, take at bedtime
+DT046#Hydroxyzine#Hydroxyzine#Antihistamine#May cause drowsiness, avoid driving or operating machinery
+DT047#Vitamin D#Vitamin D#Vitamin supplement#Take with a meal containing fat for best absorption
+DT048#Guaifenesin#Guaifenesin#Expectorant#Drink plenty of fluids while taking to help loosen mucus
+DT049#Metronidazole#Metronidazole#Antibiotic#Avoid alcohol while taking, may cause severe reaction
+DT050#Lisinopril#Lisinopril#ACE inhibitor#Take once daily for hypertension
+

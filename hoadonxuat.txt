@@ -1,0 +1,50 @@
+SOX001#Exporting Paracetamol to Happy Health Pharmacy#DT001#LOT002#30 boxes#02/05/2024#Jane Smith
+SOX002#Exporting Ibuprofen to Quick Cure Pharmacy#DT002#LOT003#25 boxes#03/05/2024#John Doe
+SOX003#Exporting Loratadine to HealthPlus Pharmacy#DT003#LOT004#40 boxes#04/05/2024#Emily Davis
+SOX004#Exporting Omeprazole to Relief Pharmacy#DT004#LOT005#35 boxes#05/05/2024#David Brown
+SOX005#Exporting Diphenhydramine to Happy Health Pharmacy#DT005#LOT006#45 boxes#06/05/2024#Sarah Wilson
+SOX006#Exporting Cetirizine to Quick Cure Pharmacy#DT006#LOT007#50 boxes#07/05/2024#John Doe
+SOX007#Exporting Simvastatin to HealthPlus Pharmacy#DT007#LOT008#30 boxes#08/05/2024#Jane Smith
+SOX008#Exporting Metformin to Relief Pharmacy#DT008#LOT009#40 boxes#09/05/2024#Michael Johnson
+SOX009#Exporting Levothyroxine to Happy Health Pharmacy#DT009#LOT010#25 boxes#10/05/2024#Emily Davis
+SOX010#Exporting Aspirin to Carewell Pharmacy#DT010#LOT011#35 boxes#11/05/2024#David Brown
+SOX011#Exporting Metoprolol to Quick Cure Pharmacy#DT011#LOT012#45 boxes#12/05/2024#Sarah Wilson
+SOX012#Exporting Ciprofloxacin to HealthPlus Pharmacy#DT012#LOT013#50 boxes#13/05/2024#John Doe
+SOX013#Exporting Atorvastatin to Relief Pharmacy#DT013#LOT014#30 boxes#14/05/2024#Jane Smith
+SOX014#Exporting Prednisone to Happy Health Pharmacy#DT014#LOT015#40 boxes#15/05/2024#Michael Johnson
+SOX015#Exporting Escitalopram to Quick Cure Pharmacy#DT015#LOT016#25 boxes#16/05/2024#Emily Davis
+SOX016#Exporting Albuterol to Relief Pharmacy#DT016#LOT017#35 boxes#17/05/2024#David Brown
+SOX017#Exporting Amlodipine to HealthPlus Pharmacy#DT017#LOT037#30 boxes#28/05/2024#Michael Johnson
+SOX018#Exporting Losartan to HealthPlus Pharmacy#DT018#LOT018#45 boxes#18/05/2024#Sarah Wilson
+SOX019#Exporting Fluoxetine to Quick Cure Pharmacy#DT019#LOT019#50 boxes#19/05/2024#John Doe
+SOX020#Exporting Warfarin to Happy Health Pharmacy#DT020#LOT020#30 boxes#20/05/2024#Jane Smith
+SOX021#Exporting Hydrochlorothiazide to Carewell Pharmacy#DT021#LOT021#40 boxes#21/05/2024#Michael Johnson
+SOX022#Exporting Gabapentin to Relief Pharmacy#DT022#LOT022#25 boxes#22/05/2024#Emily Davis
+SOX023#Exporting Tramadol to Quick Cure Pharmacy#DT023#LOT023#35 boxes#23/05/2024#David Brown
+SOX024#Exporting Amlodipine to HealthPlus Pharmacy#DT024#LOT024#45 boxes#24/05/2024#Sarah Wilson
+SOX025#Exporting Methotrexate to Happy Health Pharmacy#DT025#LOT025#50 boxes#25/05/2024#John Doe
+SOX026#Exporting Furosemide to Quick Cure Pharmacy#DT026#LOT026#30 boxes#26/05/2024#Jane Smith
+SOX027#Exporting Bupropion to Carewell Pharmacy#DT027#LOT027#40 boxes#27/05/2024#Michael Johnson
+SOX028#Exporting Clopidogrel to Relief Pharmacy#DT028#LOT028#25 boxes#28/05/2024#Emily Davis
+SOX029#Exporting Duloxetine to HealthPlus Pharmacy#DT029#LOT029#35 boxes#29/05/2024#David Brown
+SOX030#Exporting Olanzapine to Happy Health Pharmacy#DT030#LOT030#45 boxes#30/05/2024#Sarah Wilson
+SOX031#Exporting Clonazepam to Happy Health Pharmacy#DT031#LOT031#30 boxes#21/05/2024#Jane Smith
+SOX032#Exporting Methylprednisolone to Quick Cure Pharmacy#DT032#LOT032#40 boxes#22/05/2024#Michael Johnson
+SOX033#Exporting Venlafaxine to HealthPlus Pharmacy#DT033#LOT033#25 boxes#23/05/2024#Emily Davis
+SOX034#Exporting Quetiapine to Relief Pharmacy#DT034#LOT034#35 boxes#24/05/2024#David Brown
+SOX035#Exporting Tamsulosin to Happy Health Pharmacy#DT035#LOT035#45 boxes#25/05/2024#Sarah Wilson
+SOX036#Exporting Citalopram to Quick Cure Pharmacy#DT036#LOT036#50 boxes#31/05/2024#John Doe
+SOX037#Exporting Amoxicillin to Carewell Pharmacy#DT037#LOT037#30 boxes#01/06/2024#Jane Smith
+SOX038#Exporting Clarithromycin to Relief Pharmacy#DT038#LOT038#40 boxes#02/06/2024#Michael Johnson
+SOX039#Exporting Carvedilol to HealthPlus Pharmacy#DT039#LOT039#25 boxes#03/06/2024#Emily Davis
+SOX040#Exporting Cefdinir to Quick Cure Pharmacy#DT040#LOT040#35 boxes#04/06/2024#David Brown
+SOX041#Exporting Risperidone to Happy Health Pharmacy#DT041#LOT041#45 boxes#05/06/2024#Sarah Wilson
+SOX042#Exporting Folic Acid to Carewell Pharmacy#DT042#LOT042#50 boxes#06/06/2024#John Doe
+SOX043#Exporting Doxycycline to Relief Pharmacy#DT043#LOT043#30 boxes#07/06/2024#Jane Smith
+SOX044#Exporting Naproxen to HealthPlus Pharmacy#DT044#LOT044#40 boxes#08/06/2024#Michael Johnson
+SOX045#Exporting Mirtazapine to Quick Cure Pharmacy#DT045#LOT045#25 boxes#09/06/2024#Emily Davis
+SOX046#Exporting Hydroxyzine to Happy Health Pharmacy#DT046#LOT046#35 boxes#10/06/2024#David Brown
+SOX047#Exporting Vitamin D to Carewell Pharmacy#DT047#LOT047#45 boxes#11/06/2024#Sarah Wilson
+SOX048#Exporting Guaifenesin to HealthPlus Pharmacy#DT048#LOT048#50 boxes#12/06/2024#John Doe
+SOX049#Exporting Metronidazole to Relief Pharmacy#DT049#LOT049#30 boxes#13/06/2024#Jane Smith
+SOX050#Exporting Lisinopril to Quick Cure Pharmacy#DT050#LOT050#40 boxes#14/06/2024#Michael Johnson
