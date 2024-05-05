@@ -1,15 +1,9 @@
 #include "index.h"
-//=====================================================================//
-#define getString(file, value, format, index) do {\
-	char string[MAX_SIZE];\
-    fscanf(file, format, string);\
-    value->info[index] = strdup(string);\
-} while(0)
-//=====================================================================//
-#define getInfo(file, value, format, size) do {\
-	for(int i = 0; i < size; i++)\
-		getString(file, value, format, i);\
-} while(0)
+
+#define FILE_FORMAT "%[^#]#"
+#define NEW_LINE "%[^\n]\n"
+#define DATE_FORMAT "%d/%d/%d#"
+
 //=====================================================================//
 #define find(queue, type, value, flag) do {\
 	Node* head = queue.getHead();\
@@ -23,7 +17,7 @@
 } while(0)
 //=====================================================================//
 #define TIM_DON_THUOC(queue, name, type, noti) do {\
-	char value[MAX_SIZE];\
+	char value[MAX_SIZE_STRING];\
 	bool flag = false;\
 	printf("\nNhap %s thuoc ban muon tim: ", name);\
 	fflush(stdin);\
@@ -34,19 +28,19 @@
 //=====================================================================//
 #define TIM_THEO_HOA_DON(Prescription_Queue, BiLL_Queue) do {\
 	bool flag = false;\
-	char temp[MAX_SIZE];\
+	char temp[MAX_SIZE_STRING];\
 	Node* head = BiLL_Queue.getHead();\
 	printf("\nNhap ma hoa don cua don thuoc ban muon tim: ");\
 	fflush(stdin);\
 	gets(temp);\
 	while (head != NULL) {\
-		if (!strcmp(((Hoa_Don*) head->data)->info[0], temp)) {flag = true; break;}\
+		if (!strcmp(((Hoa_Don*) head->data)->info[maHoaDon], temp)) {flag = true; break;}\
 		head = head->next;\
 	}\
 	if (!flag) {showNotification("\nMa hoa don khong ton tai trong danh sach hien tai!\n");}\
 	else {\
-		strcpy(temp, ((Hoa_Don*) head->data)->info[2]);\
-		find(Prescription_Queue, 0, temp, flag);\
+		strcpy(temp, ((Hoa_Don*) head->data)->info[maDonThuoc]);\
+		find(Prescription_Queue, maThuoc, temp, flag);\
 		showNotification("\nHay load them cac hoa don de tim kiem chinh xac hon!");\
 	}\
 } while(0)
@@ -82,84 +76,110 @@ void* readfile(FILE* file, const char* fileName) {
 	}
 	return nullptr;
 }
+void getProperties(FILE* file, void* variable, const char* format, int pType, int vType) {
+	char string[MAX_SIZE_STRING] = "";
+    fscanf(file, format, string);
+	if (vType == hoaDon)
+		((Hoa_Don*)variable)->info[pType] = strdup(string);
+	if (vType == donThuoc)
+		((Don_thuoc*)variable)->info[pType] = strdup(string);
+}
+void getDate(FILE* file, const char* format, Date& variable) {
+	int d, m, y;
+	fscanf(file, format, &d, &m, &y);
+	variable = Date(d, m, y);
+}
 
 // Don thuoc // 
 void* getPrescription(FILE* file) {
 	Don_thuoc* value = new Don_thuoc();
-	getInfo(file, value, "%[^#]#", 4);
-	getString(file, value, "%[^\n]\n", 4);
+	getProperties(file, value, FILE_FORMAT, maThuoc, donThuoc);
+	getProperties(file, value, FILE_FORMAT, tenThuoc, donThuoc);
+	getProperties(file, value, FILE_FORMAT, thanhPhanChinh, donThuoc);
+	getProperties(file, value, FILE_FORMAT, congDung, donThuoc);
+	getProperties(file, value, NEW_LINE, ghiChuCuaDonThuoc, donThuoc);
 	return value;
 }
 void printPrescription(Don_thuoc* value) {
 	if (value == nullptr) return;
-	for (int i = 0; i < WIDTH; i++) {printf("_");}
-	printf("\n||%-6s||%-18s||%-18s||%-40s||%-60s||\n", value->info[0], value->info[1], value->info[2], value->info[3], value->info[4]);
-	for (int i = 0; i < WIDTH; i++) {printf("_");}
+	for (int i = 0; i < MENU_WIDTH; i++) {printf("_");}
+	printf("\n||%-6s||%-18s||%-18s||%-40s||%-60s||\n", value->info[maThuoc], 
+							   value->info[tenThuoc], 
+							   value->info[thanhPhanChinh],
+							   value->info[congDung], 
+							   value->info[ghiChuCuaDonThuoc]);
+	for (int i = 0; i < MENU_WIDTH; i++) {printf("_");}
 	printf("\n");
 }
 
 // Hoa don //
-void* getBill(FILE* file) {
+Hoa_Don getBill(FILE* file) {
 	Hoa_Don* value = new Hoa_Don();
-	getInfo(file, value, "%[^#]#", 5);
-	fscanf(file, "%d/%d/%d#", &value->date.day, &value->date.month, &value->date.year);
-	return value;
+	getProperties(file, value, FILE_FORMAT, maHoaDon, hoaDon);
+	getProperties(file, value, FILE_FORMAT, ghiChuCuaHoaDon, hoaDon);
+	getProperties(file, value, FILE_FORMAT, maDonThuoc, hoaDon);
+	getProperties(file, value, FILE_FORMAT, soLo, hoaDon);
+	getProperties(file, value, FILE_FORMAT, soLuong, hoaDon);
+	getDate(file, DATE_FORMAT, value->dates[ngayTrenHoaDon]);
+	return *value;
 }
 void printBill(Hoa_Don value, const char* string) {
-	printf("\n= So hoa don %s    : %s", string, value.info[0]);
-	printf("\n= Ngay %s          : %02d / %02d / %04d", string, value.date.day, value.date.month, value.date.year);
-	printf("\n= Ghi chu            : "); puts(value.info[1]);
-	printf("= Ma thuoc           : "); puts(value.info[2]);
-	printf("= So lo              : "); puts(value.info[3]);
-	printf("= So luong xuat      : "); puts(value.info[4]);
+	printf("\n= So hoa don %s    : %s", string, value.info[maHoaDon]);
+	printf("\n= Ngay %s          : %02d / %02d / %04d", string, value.dates[ngayTrenHoaDon].day,
+								    value.dates[ngayTrenHoaDon].month, 
+								    value.dates[ngayTrenHoaDon].year);
+	printf("\n= Ghi chu            : "); puts(value.info[ghiChuCuaHoaDon]);
+	printf("= Ma thuoc           : "); puts(value.info[maDonThuoc]);
+	printf("= So lo              : "); puts(value.info[soLo]);
+	printf("= So luong xuat      : "); puts(value.info[soLuong]);
 }
 
 // Hoa don xuat //
 void* getExportingBill(FILE* file) {
 	Hoa_Don_Xuat* value = new Hoa_Don_Xuat();
-	value->info = *((Hoa_Don*) getBill(file));
-	fscanf(file, "%[^\n]\n", value->nguoi_mua);
+	value->info = getBill(file);
+	fscanf(file, NEW_LINE, value->nguoi_mua);
 	return value;
 }
 void printExportingBill(Hoa_Don_Xuat* value) {
 	if (value == nullptr) return;
-	for (int i = 0; i < WIDTH; i++) {printf("_");}
+	for (int i = 0; i < MENU_WIDTH; i++) {printf("_");}
 	printBill(value->info, "xuat");
 	printf("= Nguoi mua          : "); puts(value->nguoi_mua);
-	for (int i = 0; i < WIDTH; i++) {printf("_");}
+	for (int i = 0; i < MENU_WIDTH; i++) {printf("_");}
 	printf("\n");
 }
 
 // Hoa don nhap //
 void* getImportingBill(FILE* file) {
 	Hoa_Don_Nhap* value = new Hoa_Don_Nhap();
-	value->info = *((Hoa_Don*)getBill(file));
-	fscanf(file, "%d/%d/%d#", &value->Ngay_sx.day, &value->Ngay_sx.month, &value->Ngay_sx.year);
-	fscanf(file, "%d/%d/%d#", &value->Ngay_het_han.day, &value->Ngay_het_han.month, &value->Ngay_het_han.year);
-	fscanf(file, "%[^\n]\n", value->Congty_sx);
+	value->info = getBill(file);
+	getDate(file, DATE_FORMAT, value->dates[Ngay_sx]);
+	getDate(file, DATE_FORMAT, value->dates[Ngay_het_han]);
+	fscanf(file, NEW_LINE, value->Congty_sx);
 	return value;
 }
 void printImportingBill(Hoa_Don_Nhap* value) {
 	if (value == nullptr) return;
-	for (int i = 0; i < WIDTH; i++) {printf("_");}
+	for (int i = 0; i < MENU_WIDTH; i++) {printf("_");}
 	printBill(value->info, "nhap");
-	printf("= Ngay san xuat      : %02d / %02d / %04d", value->Ngay_sx.day, value->Ngay_sx.month, value->Ngay_sx.year);
-	printf("\n= Ngay het han       : %02d / %02d / %04d", value->Ngay_het_han.day, value->Ngay_het_han.month, value->Ngay_het_han.year);
+	printf("= Ngay san xuat      : %02d / %02d / %04d", value->dates[Ngay_sx].day, value->dates[Ngay_sx].month, value->dates[Ngay_sx].year);
+	printf("\n= Ngay het han       : %02d / %02d / %04d", value->dates[Ngay_het_han].day, value->dates[Ngay_het_han].month, value->dates[Ngay_het_han].year);
 	printf("\n= Cong ty san xuat   : "); puts(value->Congty_sx);
-	for (int i = 0; i < WIDTH; i++) {printf("_");}
+	for (int i = 0; i < MENU_WIDTH; i++) {printf("_");}
 	printf("\n");
 }
 
 // Menu function
 void Menu(int start, int end) {
 	printf("MENU:\n");
-	for (int i = 0; i < WIDTH; i++) {printf("=");}
+	for (int i = 0; i < MENU_WIDTH; i++) {printf("=");}
 	printf("\n||\t"); puts(menuCase[0]);
 	for (int i = start; i <= end; i++) {
 		printf("\n||\t"); 
 		puts(menuCase[i]);
 	}
-	for (int i = 0; i < WIDTH; i++) {printf("=");}
+	for (int i = 0; i < MENU_WIDTH; i++) {printf("=");}
 	printf("\n");
 }
 void getChoice(int &choosen, int minCase, int maxCase) {
@@ -175,7 +195,7 @@ void KHOI_TAO_DS_DON_THUOC(Queue& Prescription_Queue, FILE* Don_thuoc) {
 	}
 	int size;
 	fscanf(Don_thuoc, "%d\n", &size);
-	Prescription_Queue.createQueue(size, Don_thuoc, fileDonThuoc);
+	Prescription_Queue.createQueue(size, Don_thuoc, FILE_DON_THUOC);
 	showNotification("\nDa tao danh sach don thuoc!");
 }
 void LAP_HOA_DON(Queue& IMP_BiLL_Queue, Queue& EXP_BiLL_Queue, FILE* Hoa_Don_Nhap, FILE* Hoa_Don_Xuat) {
@@ -193,7 +213,7 @@ void LAP_HOA_DON(Queue& IMP_BiLL_Queue, Queue& EXP_BiLL_Queue, FILE* Hoa_Don_Nha
 }
 void LAP_HOA_DON_NHAP(Queue& IMP_BiLL_Queue, FILE* Hoa_Don_Nhap) {
 	if (!feof(Hoa_Don_Nhap)) {
-		IMP_BiLL_Queue.createQueue(SIZE, Hoa_Don_Nhap, fileHoaDonNhap);
+		IMP_BiLL_Queue.createQueue(SIZE, Hoa_Don_Nhap, FILE_HOA_DON_NHAP);
 		printf("\nDa Load them %d hoa don nhap thanh cong!", SIZE);
 		system("pause>0");
 	}
@@ -202,7 +222,7 @@ void LAP_HOA_DON_NHAP(Queue& IMP_BiLL_Queue, FILE* Hoa_Don_Nhap) {
 }	
 void LAP_HOA_DON_XUAT(Queue& EXP_BiLL_Queue, FILE* Hoa_Don_Xuat) {
 	if (!feof(Hoa_Don_Xuat)) {
-		EXP_BiLL_Queue.createQueue(SIZE, Hoa_Don_Xuat, fileHoaDonXuat);
+		EXP_BiLL_Queue.createQueue(SIZE, Hoa_Don_Xuat, FILE_HOA_DON_XUAT);
 		printf("\nDa Load them %d hoa don nhap thanh cong!", SIZE);
 		system("pause>0");
 	}
@@ -222,8 +242,8 @@ void TIM_KIEM_DON_THUOC(Queue Prescription_Queue, Queue IMP_BiLL_Queue, Queue EX
 		getChoice(choice, 0, 3);
 		switch (choice) {
 			case 0: printf("\nBam mot phim bat ki de tiep tuc!"); break;
-			case 1: TIM_DON_THUOC(Prescription_Queue, "ten", 1, noti); break;
-			case 2: TIM_DON_THUOC(Prescription_Queue, "ma so", 0, noti); break;
+			case 1: TIM_DON_THUOC(Prescription_Queue, "ten", tenThuoc, noti); break;
+			case 2: TIM_DON_THUOC(Prescription_Queue, "ma so", maThuoc, noti); break;
 			case 3: TIM_DON_THUOC_THEO_HOA_DON(Prescription_Queue, IMP_BiLL_Queue, EXP_BiLL_Queue); break;
 		}
 		system("pause>0");
@@ -280,7 +300,7 @@ void THONG_TIN_DON_THUOC_BAN_NHIEU_NHAT_IT_NHAT(Queue EXP_BiLL_Queue, const char
 	Hoa_Don_Xuat value = *((Hoa_Don_Xuat*) getMaxOrMin(type, EXP_BiLL_Queue));
 	Node* head = EXP_BiLL_Queue.getHead();
 	while(head != NULL) {
-		if (atoi(value.info.info[4]) == atoi(((Hoa_Don_Xuat*)head->data)->info.info[4]))
+		if (atoi(value.info.info[soLuong]) == atoi(((Hoa_Don_Xuat*)head->data)->info.info[soLuong]))
 			printExportingBill((Hoa_Don_Xuat*) head->data);
 		head = head->next;
 	}
@@ -290,8 +310,8 @@ void* getMaxOrMin(const char* type, Queue EXP_BiLL_Queue) {
 	Node* head = EXP_BiLL_Queue.getHead();
 	max = min = (Hoa_Don_Xuat*) head->data;
 	while (head != NULL) {
-		max = atoi(max->info.info[4]) < atoi(((Hoa_Don_Xuat*) head->data)->info.info[4]) ? (Hoa_Don_Xuat*) head->data : max;
-		min = atoi(min->info.info[4]) > atoi(((Hoa_Don_Xuat*) head->data)->info.info[4]) ? (Hoa_Don_Xuat*) head->data : min;
+		max = atoi(max->info.info[soLuong]) < atoi(((Hoa_Don_Xuat*) head->data)->info.info[soLuong]) ? (Hoa_Don_Xuat*) head->data : max;
+		min = atoi(min->info.info[soLuong]) > atoi(((Hoa_Don_Xuat*) head->data)->info.info[soLuong]) ? (Hoa_Don_Xuat*) head->data : min;
 		head = head->next;
 	}
 	if (!strcmp(type, "min")) return min;
@@ -305,7 +325,7 @@ void THONG_TIN_DON_THUOC_CO_THOI_GIAN_SD_DUOI_6_THANG(Queue IMP_BiLL_Queue) {
 	bool flag = false;
 	Node* head = IMP_BiLL_Queue.getHead();
 	while (head != NULL) {
-		if (checkMonth(((Hoa_Don_Nhap*) head->data)->Ngay_het_han, 180) == 1) {
+		if (checkMonth(((Hoa_Don_Nhap*) head->data)->dates[Ngay_het_han], 180) == 1) {
 			flag = true;
 			printImportingBill((Hoa_Don_Nhap*) head->data);
 		}
@@ -324,7 +344,8 @@ bool isValidDate(Date date) {
 }
 bool checkExpiry(Date end) {
 	Date start = getCurrentDate();
-	if (end.year < start.year || (end.year == start.year && end.month < start.month) || (end.year == start.year && end.month == start.month && end.day < start.day))
+	if (end.year < start.year || (end.year == start.year && end.month < start.month) || 
+	   (end.year == start.year && end.month == start.month && end.day < start.day))
 		return true;
 	return false;
 }
@@ -367,7 +388,7 @@ void IN_RA_THONG_TIN_CAC_DON_THUOC_TON_SLG_LON_HON_N(int number, Queue IMP_BiLL_
 	Node* h2 = EXP_BiLL_Queue.getHead();
 	while(h1 != NULL && h2 != NULL)
 	{
-		if (atoi(((Hoa_Don_Nhap*) h1->data)->info.info[4]) - atoi(((Hoa_Don_Xuat*) h2->data)->info.info[4]) > number) {
+		if (atoi(((Hoa_Don_Nhap*) h1->data)->info.info[soLuong]) - atoi(((Hoa_Don_Xuat*) h2->data)->info.info[soLuong]) > number) {
 			flag = true;
 			printf("\nResult:\n");
 			printImportingBill((Hoa_Don_Nhap*) h1->data);
@@ -386,7 +407,7 @@ void THONG_KE_THUOC_CO_THOI_HAN_SU_DUNG_DUOI_30_NGAY(Queue IMP_BiLL_Queue) {
 	bool flag = false;
 	Node* head = IMP_BiLL_Queue.getHead();
 	while (head != NULL) {
-		if (checkMonth(((Hoa_Don_Nhap*) head->data)->Ngay_het_han, 30) == 1) {
+		if (checkMonth(((Hoa_Don_Nhap*) head->data)->dates[Ngay_het_han], 30) == 1) {
 			flag = true;
 			printImportingBill((Hoa_Don_Nhap*) head->data);
 		}
@@ -403,7 +424,7 @@ void XOA_DON_THUOC(Queue Prescription_Queue, Queue IMP_BiLL_Queue, Queue EXP_BiL
 	Node* h1 = Prescription_Queue.getHead();
 	Node* h2 = IMP_BiLL_Queue.getHead();
 	Node* h3 =  EXP_BiLL_Queue.getHead();
-	Date end = ((Hoa_Don_Nhap*) h2->data)->Ngay_het_han;
+	Date end = ((Hoa_Don_Nhap*) h2->data)->dates[Ngay_het_han];
 	if (!isValidDate(end) || checkExpiry(end)){
 		printf("\nDON THUOC:\n");
 		printPrescription((Don_thuoc*) Prescription_Queue.pop());
@@ -411,8 +432,8 @@ void XOA_DON_THUOC(Queue Prescription_Queue, Queue IMP_BiLL_Queue, Queue EXP_BiL
 		printExportingBill((Hoa_Don_Xuat*)EXP_BiLL_Queue.pop());
 		flag = true;
 	}
-	while (h2->next != NULL) {
-		end = ((Hoa_Don_Nhap*) h2->next->data)->Ngay_het_han;
+	while (h2->next != NULL && h1->next != NULL && h3->next != NULL) {
+		end = ((Hoa_Don_Nhap*) h2->next->data)->dates[Ngay_het_han];
 		if (!isValidDate(end) || checkExpiry(end)) {
 			printf("\nDON THUOC:\n");
 			printPrescription((Don_thuoc*) Prescription_Queue.deleteAfter(h1));
