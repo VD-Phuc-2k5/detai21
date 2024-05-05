@@ -3,9 +3,9 @@
 int main() {
 	Queue Prescription_Queue, IMP_BiLL_Queue, EXP_BiLL_Queue;
 	Prescription_Queue.init(); IMP_BiLL_Queue.init(), EXP_BiLL_Queue.init();
-	FILE* don_thuoc    = fopen(fileDonThuoc  , "r");
-	FILE* hoa_don_nhap = fopen(fileHoaDonNhap, "r");
-	FILE* hoa_don_xuat = fopen(fileHoaDonXuat, "r");
+	FILE* don_thuoc    = fopen(FILE_DON_THUOC  , "r");
+	FILE* hoa_don_nhap = fopen(FILE_HOA_DON_NHAP, "r");
+	FILE* hoa_don_xuat = fopen(FILE_HOA_DON_XUAT, "r");
 	int choice;
 	do {
 		Menu(1, 8);
