@@ -9,39 +9,55 @@
 #include <time.h>
 
 // define macros
-#define fileDonThuoc   "thuoc.txt"
-#define fileHoaDonNhap "hoadonnhap.txt"
-#define fileHoaDonXuat "hoadonxuat.txt"
-#define MAX_SIZE 255
-#define WIDTH 154
-#define SIZE 10 // so phan tu load len trc
+#define FILE_DON_THUOC   "thuoc.txt"
+#define FILE_HOA_DON_NHAP "hoadonnhap.txt"
+#define FILE_HOA_DON_XUAT "hoadonxuat.txt"
+#define PRESCRIPTION_PROPERTIES 5
+#define BILL_PROPERTIES 5
+#define MAX_SIZE_STRING 255
+#define MENU_WIDTH 154
+#define SIZE 10
 
 #pragma warning (disable : 4996)
 
+enum Prescription_properties {maThuoc, tenThuoc, thanhPhanChinh, ghiChuCuaDonThuoc, congDung};
+enum Bill_Properties {maHoaDon, ghiChuCuaHoaDon, maDonThuoc, soLo, soLuong};
+enum DateType {ngayTrenHoaDon = 0, Ngay_sx = 0, Ngay_het_han = 1};
+enum PropertiesType {donThuoc, hoaDon};
+
 // define structures
 struct Date {
-	short int day, month;
-	int year;
+	int day, month, year;
+	Date() : day(0), month(0), year(0) {} 
+	Date(int d, int m, int y) : day(d), month(m), year(y) {} 
 };
 struct Don_thuoc {
-	char *info[5];
-	Don_thuoc() {for(int i = 0; i < 5; i++) {info[i] = "";}}
+	char *info[PRESCRIPTION_PROPERTIES];
+	Don_thuoc() { for(int i = 0; i < PRESCRIPTION_PROPERTIES; i++) { info[i] = strdup(""); } }
 };
 struct Hoa_Don {
-	Date date;
-	char* info[5];
-	Hoa_Don() {for(int i = 0; i < 5; i++) {info[i] = "";}}
+	Date dates[1];
+	char* info[BILL_PROPERTIES];
+	Hoa_Don() { 
+		dates[0] = Date();
+		for(int i = 0; i < BILL_PROPERTIES; i++) { info[i] = strdup(""); } 
+	}
 };
 struct Hoa_Don_Xuat {
 	Hoa_Don info;
-	char nguoi_mua[MAX_SIZE];
-	Hoa_Don_Xuat() {for(int i = 0; i < 5; i++) {info.info[i] = "";}}
+	char nguoi_mua[MAX_SIZE_STRING];
+	Hoa_Don_Xuat() { 
+		for(int i = 0; i < BILL_PROPERTIES; i++) { info.info[i] = strdup(""); } 
+	}
 };
 struct Hoa_Don_Nhap {
 	Hoa_Don	info;
-	Date Ngay_sx, Ngay_het_han;
-	char Congty_sx[MAX_SIZE];
-	Hoa_Don_Nhap() {for(int i = 0; i < 5; i++) {info.info[i] = "";}}
+	Date dates[2];
+	char Congty_sx[MAX_SIZE_STRING];
+	Hoa_Don_Nhap() { 
+		dates[0] = dates[1] = Date();
+		for(int i = 0; i < BILL_PROPERTIES; i++) { info.info[i] = strdup(""); } 
+	}
 };
 struct Node {
 	void* data;
@@ -52,11 +68,15 @@ struct Node {
 // define prototypes //
 void showNotification(const char* notification);
 void* readfile(FILE* file, const char* fileName);
+
+void getProperties(FILE* file, void* variable, const char* format, int vType, int pType);
+void getDate(FILE* file, const char* format, Date& variable);
+
 // Don thuoc //
 void* getPrescription(FILE* file);
 void printPrescription(Don_thuoc* value);
 // Hoa don //
-void* getBill(FILE* file);
+Hoa_Don getBill(FILE* file);
 void printBill(Hoa_Don value, const char* string);
 // Hoa don xuat //
 void* getExportingBill(FILE* file);
