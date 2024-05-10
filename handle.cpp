@@ -102,14 +102,14 @@ void* getPrescription(FILE* file) {
 }
 void printPrescription(Don_thuoc* value) {
 	if (value == nullptr) return;
-	for (int i = 0; i < MENU_WIDTH; i++) {printf("_");}
+	for (int i = 0; i < MENU_WIDTH; i++) {printf("=");}
 	printf("\n||%-6s||%-18s||%-18s||%-40s||%-60s||\n", value->info[maThuoc], 
-							   value->info[tenThuoc], 
-							   value->info[thanhPhanChinh],
-							   value->info[congDung], 
-							   value->info[ghiChuCuaDonThuoc]);
-	for (int i = 0; i < MENU_WIDTH; i++) {printf("_");}
-	printf("\n");
+							value->info[tenThuoc], 
+							value->info[thanhPhanChinh],
+							value->info[congDung], 
+							value->info[ghiChuCuaDonThuoc]);
+	for (int i = 0; i < MENU_WIDTH; i++) {printf("=");}
+	printf("\n\n");
 }
 
 // Hoa don //
@@ -124,14 +124,14 @@ Hoa_Don getBill(FILE* file) {
 	return *value;
 }
 void printBill(Hoa_Don value, const char* string) {
-	printf("\n= So hoa don %s    : %s", string, value.info[maHoaDon]);
-	printf("\n= Ngay %s          : %02d / %02d / %04d", string, value.dates[ngayTrenHoaDon].day,
-								    value.dates[ngayTrenHoaDon].month, 
-								    value.dates[ngayTrenHoaDon].year);
-	printf("\n= Ghi chu            : "); puts(value.info[ghiChuCuaHoaDon]);
-	printf("= Ma thuoc           : "); puts(value.info[maDonThuoc]);
-	printf("= So lo              : "); puts(value.info[soLo]);
-	printf("= So luong xuat      : "); puts(value.info[soLuong]);
+	printf("\n= So hoa don %s    : %s %-122s =", string, value.info[maHoaDon], " ");
+	printf("\n= Ngay %s          : %02d / %02d / %04d %-114s =", string, value.dates[ngayTrenHoaDon].day,
+									     value.dates[ngayTrenHoaDon].month, 
+									     value.dates[ngayTrenHoaDon].year, " ");
+	printf("\n= Ghi chu            : %-129s =", value.info[ghiChuCuaHoaDon]);
+	printf("\n= Ma thuoc           : %-129s =", value.info[maDonThuoc]);
+	printf("\n= So lo              : %-129s =", value.info[soLo]);
+	printf("\n= So luong xuat      : %-129s =", value.info[soLuong]);
 }
 
 // Hoa don xuat //
@@ -143,11 +143,11 @@ void* getExportingBill(FILE* file) {
 }
 void printExportingBill(Hoa_Don_Xuat* value) {
 	if (value == nullptr) return;
-	for (int i = 0; i < MENU_WIDTH; i++) {printf("_");}
+	for (int i = 0; i < MENU_WIDTH; i++) {printf("=");}
 	printBill(value->info, "xuat");
-	printf("= Nguoi mua          : "); puts(value->nguoi_mua);
-	for (int i = 0; i < MENU_WIDTH; i++) {printf("_");}
-	printf("\n");
+	printf("\n= Nguoi mua          : %-129s =\n", value->nguoi_mua); 
+	for (int i = 0; i < MENU_WIDTH; i++) {printf("=");}
+	printf("\n\n");
 }
 
 // Hoa don nhap //
@@ -161,23 +161,26 @@ void* getImportingBill(FILE* file) {
 }
 void printImportingBill(Hoa_Don_Nhap* value) {
 	if (value == nullptr) return;
-	for (int i = 0; i < MENU_WIDTH; i++) {printf("_");}
+	for (int i = 0; i < MENU_WIDTH; i++) {printf("=");}
 	printBill(value->info, "nhap");
-	printf("= Ngay san xuat      : %02d / %02d / %04d", value->dates[Ngay_sx].day, value->dates[Ngay_sx].month, value->dates[Ngay_sx].year);
-	printf("\n= Ngay het han       : %02d / %02d / %04d", value->dates[Ngay_het_han].day, value->dates[Ngay_het_han].month, value->dates[Ngay_het_han].year);
-	printf("\n= Cong ty san xuat   : "); puts(value->Congty_sx);
-	for (int i = 0; i < MENU_WIDTH; i++) {printf("_");}
-	printf("\n");
+	printf("\n= Ngay san xuat      : %02d / %02d / %04d %-114s =", value->dates[Ngay_sx].day,
+								       value->dates[Ngay_sx].month, 
+								       value->dates[Ngay_sx].year, " ");
+	printf("\n= Ngay het han       : %02d / %02d / %04d %-114s =", value->dates[Ngay_het_han].day,
+								       value->dates[Ngay_het_han].month, 
+								       value->dates[Ngay_het_han].year, " ");
+	printf("\n= Cong ty san xuat   : %-129s =\n", value->Congty_sx);
+	for (int i = 0; i < MENU_WIDTH; i++) {printf("=");}
+	printf("\n\n");
 }
 
 // Menu function
 void Menu(int start, int end) {
 	printf("MENU:\n");
 	for (int i = 0; i < MENU_WIDTH; i++) {printf("=");}
-	printf("\n||\t"); puts(menuCase[0]);
+	printf("\n||\t%-140s\t||\n", menuCase[0]); 
 	for (int i = start; i <= end; i++) {
-		printf("\n||\t"); 
-		puts(menuCase[i]);
+		printf("\n||\t%-140s\t||\n", menuCase[i]); 
 	}
 	for (int i = 0; i < MENU_WIDTH; i++) {printf("=");}
 	printf("\n");
@@ -271,8 +274,8 @@ void IN_DANH_SACH_HOA_DON(Queue IMP_BiLL_Queue, Queue EXP_BiLL_Queue) {
 		getChoice(choice, 0, 2);
 		switch (choice) {
 			case 0: printf("\nBam mot phim bat ki de tiep tuc!"); break;
-			case 1: IMP_BiLL_Queue.printQueue("hoa don nhap"); break;
-			case 2: EXP_BiLL_Queue.printQueue("hoa don xuat"); break;
+			case 1: IMP_BiLL_Queue.printQueue("HOA DON NHAP"); break;
+			case 2: EXP_BiLL_Queue.printQueue("HOA DON XUAT"); break;
 		}
 		system("pause>0");
 	} while (choice);
