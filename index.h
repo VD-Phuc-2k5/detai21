@@ -124,13 +124,15 @@ struct Queue {
 		return value;
 	}
 	void printQueue(const char* type) {
+		int count = 0;
 		if (Head == nullptr) 
 			showNotification("\nHang doi rong");
 		Node* current = Head;
 		while (current != nullptr) {
-			if (!strcmp(type, "don thuoc"))    {printPrescription ((Don_thuoc*)    current->data);}
-			if (!strcmp(type, "hoa don nhap")) {printImportingBill((Hoa_Don_Nhap*) current->data);}
-			if (!strcmp(type, "hoa don xuat")) {printExportingBill((Hoa_Don_Xuat*) current->data);}
+			printf("\n - %s %02d:\n", type, ++count);
+			if (!strcmp(type, "DON THUOC"))    {printPrescription ((Don_thuoc*)    current->data);}
+			if (!strcmp(type, "HOA DON NHAP")) {printImportingBill((Hoa_Don_Nhap*) current->data);}
+			if (!strcmp(type, "HOA DON XUAT")) {printExportingBill((Hoa_Don_Xuat*) current->data);}
 			current =  current->next;
 		}
 	}
